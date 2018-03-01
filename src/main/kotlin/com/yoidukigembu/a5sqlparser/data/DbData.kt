@@ -3,7 +3,7 @@ package com.yoidukigembu.a5sqlparser.data
 import com.yoidukigembu.a5sqlparser.valueobject.Column
 import com.yoidukigembu.a5sqlparser.valueobject.Table
 
-class DbData(val packageName:String, var baseEntityName:String?) {
+class DbData(val packageName:String) {
 
     var tables = mutableListOf<Table>()
     private set

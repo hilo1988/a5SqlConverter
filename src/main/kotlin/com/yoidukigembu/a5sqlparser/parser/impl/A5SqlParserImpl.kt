@@ -10,11 +10,11 @@ import java.io.InputStream
 import java.nio.charset.Charset
 import java.util.regex.Pattern
 
-class A5SqlParserImpl(packageName:String, baseEntityName:String?) : A5SqlParser {
+class A5SqlParserImpl(packageName:String) : A5SqlParser {
 
     private var currentCategory:Category? = null
 
-    private val dbData =  DbData(packageName, baseEntityName)
+    private val dbData =  DbData(packageName)
 
     private var currentTable:Table? = null
 

@@ -24,8 +24,8 @@ interface A5SqlParser {
     fun parse(value: InputStream): DbData
 
     companion object {
-        fun newInstance(packageName: String, baseEntityName: String?): A5SqlParser {
-            return A5SqlParserImpl(packageName, baseEntityName)
+        fun newInstance(packageName: String): A5SqlParser {
+            return A5SqlParserImpl(packageName)
         }
     }
 }

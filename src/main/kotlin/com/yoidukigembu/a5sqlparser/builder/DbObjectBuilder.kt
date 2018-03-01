@@ -8,10 +8,13 @@ import com.yoidukigembu.a5sqlparser.data.DbData
  */
 interface DbObjectBuilder {
 
-    fun build()
+    /**
+     * DBオブジェクトを生成し、zipに圧縮したバイトデータを返す
+     */
+    fun build(): ByteArray
 
     companion object {
-        fun getEloquentBuilder(dbData: DbData) : DbObjectBuilder {
+        fun getEloquentBuilder(dbData: DbData): DbObjectBuilder {
             return EloquentBuilder(dbData)
         }
     }

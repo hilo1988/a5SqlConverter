@@ -6,8 +6,11 @@ import com.yoidukigembu.a5sqlparser.data.DbData
 import com.yoidukigembu.a5sqlparser.valueobject.Column
 import com.yoidukigembu.a5sqlparser.valueobject.Table
 import org.jboss.dna.common.text.Inflector
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.charset.Charset
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 class EloquentBuilder(private val dbData: DbData) : DbObjectBuilder {
 
@@ -30,17 +33,25 @@ class EloquentBuilder(private val dbData: DbData) : DbObjectBuilder {
                 .readText()
     }
 
-    override fun build() {
+    override fun build() : ByteArray {
 
         dir.mkdirs()
 
-        print("dir:" + dir.absolutePath)
+        println("dir:" + dir.absolutePath)
         createBaseEntity()
 
         dbData.tables.forEach { table -> createEntity(table) }
 
+        val baos = ByteArrayOutputStream()
+        val zos = ZipOutputStream(baos)
 
 
+        dir.listFiles()
+                .toList()
+                .map { file -> ZipEntry(file.absolutePath) }
+                .forEach(zos::putNextEntry)
+
+        return baos.toByteArray()
     }
 
 

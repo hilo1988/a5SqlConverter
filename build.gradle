@@ -13,6 +13,18 @@ group 'com.yoidukigembu'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'kotlin'
+apply plugin: 'maven'
+
+
+task sourcesJar(type: Jar, dependsOn:classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 
 repositories {
     mavenCentral()
@@ -38,7 +50,6 @@ dependencies {
     compile group: 'org.jboss.dna', name: 'dna-common', version: '0.7'
 
 
-
 }
 
 compileKotlin {
@@ -46,4 +57,14 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file:${System.getProperty('user.home')}/.m2/repository")
+        }
+    }
 }

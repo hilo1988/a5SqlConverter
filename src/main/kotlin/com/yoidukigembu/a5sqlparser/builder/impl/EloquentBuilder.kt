@@ -8,7 +8,9 @@ import com.yoidukigembu.a5sqlparser.valueobject.Table
 import org.jboss.dna.common.text.Inflector
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.nio.charset.Charset
+import java.util.zip.CRC32
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -42,16 +44,23 @@ class EloquentBuilder(private val dbData: DbData) : DbObjectBuilder {
 
         dbData.tables.forEach { table -> createEntity(table) }
 
-        val baos = ByteArrayOutputStream()
-        val zos = ZipOutputStream(baos)
+
+        val outFile = File(System.getProperty("java.io.tmpdir"), "%d_out.zip".format(System.nanoTime()))
+        val zos = ZipOutputStream(FileOutputStream(outFile))
 
 
         dir.listFiles()
                 .toList()
-                .map { file -> ZipEntry(file.absolutePath) }
-                .forEach(zos::putNextEntry)
+                .forEach{ file ->
+                    val entry = ZipEntry(file.name)
+                    zos.putNextEntry(entry)
+                    zos.write(file.readBytes())
+                    zos.closeEntry()
+                }
 
-        return baos.toByteArray()
+        return outFile.readBytes()
+
+
     }
 
 

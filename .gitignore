@@ -1,0 +1,10 @@
+.gradle
+.idea
+out
+build
+
+
+*.a5er
+
+
+/src/main/java/com/yoidukigembu/main/Executor.java

@@ -1,0 +1,19 @@
+/**
+ * %logicalName%の取得
+ * DbType: %dbType%
+ * @return mixed
+ */
+ public function get%UpperColumnName%()
+ {
+    return $this->getAttribute(%constColumn%);
+ }
+
+ /**
+  * %logicalName%のセット
+  * DbType: %dbType%
+  * @param mixed $value
+  */
+  public function set%UpperColumnName%($value) : void
+  {
+      $this->setAttribute(%constColumn%, $value);
+  }

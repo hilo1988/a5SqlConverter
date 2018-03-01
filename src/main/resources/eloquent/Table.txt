@@ -1,0 +1,24 @@
+<?php
+
+namespace %namespace%;
+
+/**
+ * %logicalName% のDBオブジェクト
+ */
+class %className% extends BaseModel
+{
+
+    /** テーブル名 */
+    const TABLE_NAME = '%tableName%';
+
+    %columnConst%
+
+    protected $table = self::TABLE_NAME;
+
+    protected $fillable = [
+        %fillables%
+    ];
+
+    %getterSetter%
+
+}

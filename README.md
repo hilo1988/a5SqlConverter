@@ -17,7 +17,7 @@ Repositoryは生成できないため、対応予定。
 
 # 使い方
 
-### Eloquent例
+### Eloquent例 (javaで記述)
 ```
 A5SqlParser parser = A5SqlParser.Companion.newInstance("packageName");
 DbData data =  parser.parse("path to XXX.a5er");

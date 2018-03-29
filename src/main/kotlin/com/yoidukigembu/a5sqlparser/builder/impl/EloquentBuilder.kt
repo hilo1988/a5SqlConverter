@@ -2,17 +2,13 @@ package com.yoidukigembu.a5sqlparser.builder.impl
 
 import com.google.common.base.CaseFormat
 import com.yoidukigembu.a5sqlparser.builder.DbObjectBuilder
+import com.yoidukigembu.a5sqlparser.compiler.ZipCompiler
 import com.yoidukigembu.a5sqlparser.data.DbData
 import com.yoidukigembu.a5sqlparser.valueobject.Column
 import com.yoidukigembu.a5sqlparser.valueobject.Table
 import org.jboss.dna.common.text.Inflector
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 import java.nio.charset.Charset
-import java.util.zip.CRC32
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 class EloquentBuilder(private val dbData: DbData) : DbObjectBuilder {
 
@@ -35,7 +31,7 @@ class EloquentBuilder(private val dbData: DbData) : DbObjectBuilder {
                 .readText()
     }
 
-    override fun build() : ByteArray {
+    override fun build(): ByteArray {
 
         dir.mkdirs()
 
@@ -46,21 +42,11 @@ class EloquentBuilder(private val dbData: DbData) : DbObjectBuilder {
 
 
         val outFile = File(System.getProperty("java.io.tmpdir"), "%d_out.zip".format(System.nanoTime()))
-        val zos = ZipOutputStream(FileOutputStream(outFile))
-
-
-        dir.listFiles()
+        val fileList = dir.listFiles()
                 .toList()
-                .forEach{ file ->
-                    val entry = ZipEntry(file.name)
-                    zos.putNextEntry(entry)
-                    zos.write(file.readBytes())
-                    zos.closeEntry()
-                }
 
-        return outFile.readBytes()
-
-
+        return ZipCompiler.getInstance()
+                .compile(outFile, fileList)
     }
 
 

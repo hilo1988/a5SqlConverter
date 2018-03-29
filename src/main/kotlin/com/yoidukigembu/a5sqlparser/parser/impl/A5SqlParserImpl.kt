@@ -52,7 +52,12 @@ class A5SqlParserImpl(packageName:String) : A5SqlParser {
         val pattern = Pattern.compile("\\[(\\w+)\\]")
         val matcher = pattern.matcher(line)
         if (matcher.matches()) {
-            currentCategory = Category.valueOf(matcher.group(1))
+            try {
+                currentCategory = Category.valueOf(matcher.group(1))
+            } catch (e : Exception) {
+                print(matcher.group(1))
+            }
+
 
             if (currentCategory == Category.Entity) {
                 currentTable = Table()

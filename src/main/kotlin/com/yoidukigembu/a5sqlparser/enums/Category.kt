@@ -7,6 +7,7 @@ enum class Category(val value:String) {
 
     Manager("Manager"),
     Entity("Entity"),
-    Relation("Relation")
+    Relation("Relation"),
+    View("View")
 
 }

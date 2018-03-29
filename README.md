@@ -11,15 +11,15 @@ Repositoryは生成できないため、対応予定。
 
 
 # 不具合情報
-返ってくるzipのbyte配列がチェックサムができておらず
-
-7zipでしか解凍できない。
+~~返ってくるzipのbyte配列がチェックサムができておらず~~
+~~7zipでしか解凍できない。~~
+zip圧縮は解決しました。(Version 1.0.0)
 
 # 使い方
 
 ### Eloquent例 (javaで記述)
 ```
-A5SqlParser parser = A5SqlParser.Companion.newInstance("packageName");
+A5SqlParser parser = A5SqlParser.Companion.newInstance("namespaceName");
 DbData data =  parser.parse("path to XXX.a5er");
 
 byte[] bytes = DbObjectBuilder.Companion.getEloquentBuilder(data).build();
